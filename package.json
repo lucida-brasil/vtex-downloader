@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "dependencies": {
+        "json2csv": "^2.12.0",
+        "moment": "^2.10.6",
+        "node-fs": "^0.1.7",
+        "prototype-pluck": "0.0.1",
+        "request": "^2.65.0"
+    },
+    "scripts" : {
+        "start": "node bots/example",
+        "postinstall" : "node core/postinstall"
+    },
+    "config": {
+        "example" : {
+            "apptoken" : "<API TOKEN>",
+            "appkey" : "<API KEY>",
+            "filepath": "./dest",
+            "file_prefix": "",
+            "daterange" : 0
+        }
+    }
+}
