@@ -20,7 +20,7 @@ function boot(config) {
     let r = new VtexRequest(
         config.apptoken,
         config.appkey,
-        'boticario',
+        config.subdomain,
         12000,
         '',
         false
@@ -34,7 +34,7 @@ function boot(config) {
     let createOldFiles = (files, callback) => {
         let oldFile     = files.shift();
         let fileName    = oldFile.substr(oldFile.lastIndexOf('/') + 1);
-        let oldDirs     = oldFile.replace(fileName, '') + 'data/';
+        let oldDirs     = oldFile.replace(fileName, '');
         let newDirs     = oldDirs + 'old/';
 
         let newFile = newDirs + fileName;
@@ -66,7 +66,7 @@ function boot(config) {
         let clientsFile      = new File( clientsFilePath );
 
         let OEFileName       = orderErrorsFP.substr(orderErrorsFP.lastIndexOf('/') + 1);
-        let orderErrorsFile  = orderErrorsFP.replace( OEFileName, '') + 'data/' + OEFileName;
+        let orderErrorsFile  = orderErrorsFP.replace( OEFileName, '') + OEFileName;
 
 
         r.getOrderIds(
@@ -120,9 +120,9 @@ function boot(config) {
                     });
                 }
                 else {
-                    console.log('Error', data.error);
                     console.log('Status Code', data.statusCode);
                     console.log('Path', data.req.path);
+                    console.log('Error', data);
                 }
             }
         );

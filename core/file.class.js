@@ -11,8 +11,8 @@ class File {
 
         //Separa o nome do arquivo do diretório
         let fileName = filePath.substr(filePath.lastIndexOf('/') + 1);
-        let dirs     = filePath.replace(fileName, '') + 'data/';
-        
+        let dirs     = filePath.replace(fileName, '');
+
         //Salva o caminho do arquivo com o diretório correto no path
         this.path    = path.resolve(dirs + fileName);
 
@@ -21,7 +21,7 @@ class File {
             if ( err && ( err.code === 'ENOENT') ){
                 fs.mkdirSync(dirs + 'old/', 754, true);
             }
-            
+
             //Finalmente cria o arquivo
             fs.writeFileSync(this.path, '');
         });
@@ -47,4 +47,3 @@ class File {
 }
 
 module.exports = File;
-

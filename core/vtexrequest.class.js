@@ -8,13 +8,12 @@ let request  = require('request');
 require('prototype-pluck');
 
 class VtexRequest {
-    constructor(apptoken, appkey, an, timeout, status, debug) {
+    constructor(apptoken, appkey, subdomain, timeout, status, debug) {
         this.debug      = debug;
         this.dateformat = 'YYYY-MM-DDThh:mm:ss.000[Z]';
         this.timeout    = timeout;
         this.status     = status;
-        this.an         = an;
-        this.host       = 'http://oms.vtexcommerce.com.br/api/oms/pvt/';
+        this.host       = `http://${subdomain}.vtexcommercestable.com.br/api/oms/pvt/`;
         this.token      = apptoken;
         this.key        = appkey;
         this.headers    = {
@@ -74,7 +73,6 @@ class VtexRequest {
                 url: `${this.host}orders/`,
                 qs : {
                     page: 1,
-                    an: this.an,
                     per_page : 50,
                     f_creationDate : `creationDate:[${startdate} TO ${enddate}]`,
                 },
@@ -162,9 +160,6 @@ class VtexRequest {
         let options = {
                 method: 'GET',
                 url: `${this.host}orders/${id}`,
-                qs: {
-                    an: this.an
-                },
                 headers: this.headers,
                 timeout: this.timeout
             };
