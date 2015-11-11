@@ -8,7 +8,7 @@
         "request": "^2.65.0"
     },
     "scripts" : {
-        "start": "node bots/example",
+        "example": "node bots/example",
         "postinstall" : "node core/postinstall"
     },
     "config": {
