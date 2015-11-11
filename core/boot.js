@@ -61,9 +61,9 @@ function boot(config) {
     }
 
     createOldFiles([ordersFilePath, productsFilePath, clientsFilePath, orderErrorsFP], () => {
-        let ordersFile       = new File( ordersFilePath );
-        let productsFile     = new File( productsFilePath );
-        let clientsFile      = new File( clientsFilePath );
+        let ordersFile       = new File( ordersFilePath, timing.startTimeStamp );
+        let productsFile     = new File( productsFilePath, timing.startTimeStamp );
+        let clientsFile      = new File( clientsFilePath, timing.startTimeStamp );
 
         let OEFileName       = orderErrorsFP.substr(orderErrorsFP.lastIndexOf('/') + 1);
         let orderErrorsFile  = orderErrorsFP.replace( OEFileName, '') + OEFileName;
@@ -111,7 +111,7 @@ function boot(config) {
 
                                 let lines = process.stdout.getWindowSize()[1];
                                 for(let i = 0; i < lines; i++) console.log('\r\n');
-                                console.log('# EXTRAÇÃO EM ANDAMENTO #\n');
+                                console.log(`# EXTRAÇÃO ${config.subdomain.toUpperCase()} EM ANDAMENTO #\n`);
                                 console.log(`pedidos: ${pedidos}`);
                                 console.log(`clientes: ${clientes}`);
                                 console.log(`produtos: ${produtos}`);
