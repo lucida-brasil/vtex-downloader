@@ -21,9 +21,10 @@ function boot(config) {
         config.apptoken,
         config.appkey,
         config.subdomain,
+        config.saleschannel,
         12000,
         '',
-        false
+        config.debug
     );
 
     let ordersFilePath   = `${config.filepath}/${config.file_prefix}orders.csv`;
@@ -70,14 +71,20 @@ function boot(config) {
 
 
         r.getOrderIds(
-            dataRange.ini,
-            dataRange.end,
+            dataRange.ini, //new Date(2015, 10, 8),
+            dataRange.end, //new Date(2015, 10, 10),
             function(err, data) { // Callback com todos os pedidos
                 timing.end  = new Date();
                 let endms   = timing.end.getTime();
                 let startms = timing.start.getTime();
                 let minutes = Math.round(((endms - startms)/1000)/60);
-                console.log(`Pedidos baixados em ${minutes.toFixed(2)} minutos.`);
+                if (minutes > 0){
+                    console.log(`\n${config.subdomain}: Pedidos baixados em ${minutes.toFixed(2)} minutos.`);
+                }
+                else {
+                    let seconds = Math.round(((endms - startms)/1000));
+                    console.log(`\n${config.subdomain}: Pedidos baixados em ${seconds.toFixed(1)} segundos.`);
+                }
              },
 
             function(data){
@@ -109,12 +116,12 @@ function boot(config) {
                                 pedidos++;
                                 clientes++;
 
-                                let lines = process.stdout.getWindowSize()[1];
-                                for(let i = 0; i < lines; i++) console.log('\r\n');
-                                console.log(`# EXTRAÇÃO ${config.subdomain.toUpperCase()} EM ANDAMENTO #\n`);
-                                console.log(`pedidos: ${pedidos}`);
-                                console.log(`clientes: ${clientes}`);
-                                console.log(`produtos: ${produtos}`);
+                                if ( !config.debug && process && process.stdout && process.stdout.getWindowSize ) {                                    
+                                    console.log(`# EXTRAÇÃO ${(config.saleschannel||config.subdomain).toUpperCase()} EM ANDAMENTO #\n`);
+                                    console.log(`pedidos: ${pedidos}`);
+                                    console.log(`clientes: ${clientes}`);
+                                    console.log(`produtos: ${produtos}`);
+                                }
                             }
                         });
                     });

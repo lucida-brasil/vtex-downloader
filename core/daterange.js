@@ -8,13 +8,13 @@ function daterange(range) {
         ini = new Date();
         ini.setDate(ini.getDate() -1);
     }
-    else{
+    else {
         let now   = new Date();
         let day   = now.getDate();
         let month = now.getMonth();
         let year  = now.getFullYear();
 
-        end = new Date(year, month, day -1, 0, 0, 0);
+        end = new Date(year, month, day -1, 23, 59, 0);
         ini = new Date(year, month, day, 0, 0, 0);
         ini.setDate(day - range - 1);
     }

@@ -15,9 +15,12 @@
         "example" : {
             "apptoken" : "<API TOKEN>",
             "appkey" : "<API KEY>",
+            "subdomain" : "<API SUBDOMAIN>",
+            "saleschannel": null,
             "filepath": "./dest",
             "file_prefix": "",
-            "daterange" : 0
+            "daterange" : 0,
+            "debug": false
         }
     }
 }

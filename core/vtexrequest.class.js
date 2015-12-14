@@ -8,15 +8,17 @@ let request  = require('request');
 require('prototype-pluck');
 
 class VtexRequest {
-    constructor(apptoken, appkey, subdomain, timeout, status, debug) {
-        this.debug      = debug;
-        this.dateformat = 'YYYY-MM-DDThh:mm:ss.000[Z]';
-        this.timeout    = timeout;
-        this.status     = status;
-        this.host       = `http://${subdomain}.vtexcommercestable.com.br/api/oms/pvt/`;
-        this.token      = apptoken;
-        this.key        = appkey;
-        this.headers    = {
+    constructor(apptoken, appkey, subdomain, saleschannel, timeout, status, debug) {
+        this.subdomain    = subdomain;
+        this.saleschannel = saleschannel;
+        this.debug        = debug;
+        this.dateformat   = 'YYYY-MM-DDTHH:mm:ss.000[Z]';
+        this.timeout      = timeout;
+        this.status       = status;
+        this.host         = `http://${subdomain}.vtexcommercestable.com.br/api/oms/pvt/`;
+        this.token        = apptoken;
+        this.key          = appkey;
+        this.headers      = {
                 'x-vtex-api-apptoken': apptoken,
                 'x-vtex-api-appkey': appkey
             };
@@ -72,6 +74,7 @@ class VtexRequest {
                 method: 'GET',
                 url: `${this.host}orders/`,
                 qs : {
+                    f_salesChannel: this.saleschannel,
                     page: 1,
                     per_page : 50,
                     f_creationDate : `creationDate:[${startdate} TO ${enddate}]`,
@@ -161,7 +164,10 @@ class VtexRequest {
                 method: 'GET',
                 url: `${this.host}orders/${id}`,
                 headers: this.headers,
-                timeout: this.timeout
+                timeout: this.timeout,
+                qs: {
+                    f_salesChannel: this.saleschannel
+                }
             };
 
         /** REQUEST **/
